@@ -122,10 +122,12 @@ class ContactHelper:
                 lastname = cells[1].text
                 id = cells[0].find_element_by_name("selected[]").get_attribute('value')
                 all_phones = cells[5].text
+                all_mails = cells[4].text
                 self.contact_cache.append(Contact(firstname=firstname,
                                                   lastname=lastname,
                                                   id=id,
-                                                  all_phones_from_home_page=all_phones))
+                                                  all_phones_from_home_page=all_phones,
+                                                  all_mails_from_home_page=all_mails))
         return list(self.contact_cache)
 
     def get_contact_info_from_edit_page(self, index):
@@ -148,11 +150,9 @@ class ContactHelper:
         homephone = re.search('H: (.*)', text).group(1)
         mobilephone = re.search('M: (.*)', text).group(1)
         workphone = re.search('W: (.*)', text).group(1)
-        homephone = re.search('P: (.*)', text).group(1)
+        secondaryphone = re.search('P: (.*)', text).group(1)
         return Contact(homephone=homephone, mobilephone=mobilephone,
                        workphone=workphone, secondaryphone=secondaryphone)
-
-
 
 
 
