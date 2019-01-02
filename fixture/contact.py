@@ -85,8 +85,7 @@ class ContactHelper:
 
     def modify_contact_by_index(self, index, new_contact_data):
         wd = self.app.wd
-        # click modification button
-        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
+        self.open_contact_view_by_index(index)
         # specify new data
         self.fill_contact_form(new_contact_data)
         self.specify_drop_downs(new_contact_data)
@@ -95,6 +94,10 @@ class ContactHelper:
         # return to home page
         self.app.return_on_home_page()
         self.contact_cache = None
+
+    def open_contact_view_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_css_selector("img[alt=\"Edit\"]")[index].click()
 
     def count(self):
         wd = self.app.wd
@@ -119,3 +122,6 @@ class ContactHelper:
                 id = cells[0].find_element_by_name("selected[]").get_attribute('value')
                 self.contact_cache.append(Contact(firstname=firstname, lastname=lastname, id=id))
         return list(self.contact_cache)
+
+    def get_contact_info_from_edit_page(self, index):
+        self.modify_contact_by_index(index)
