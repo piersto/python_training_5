@@ -10,10 +10,12 @@ def random_string(prefix, maxlen):
     symbols = string.ascii_letters + string.digits + ' '*5
     return prefix + ''.join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
-testdata=[
+
+testdata = [
     # will generate random string that starts with word 'Name' or 'Header etc and + some more random symbols
-    Group(name=random_string('Name', (10)), header=random_string('Header', (5)), footer=random_string('footer', (7)))
+    Group(name=random_string('Name', (10)), header=random_string('Header', (5)), footer=random_string('Footer', (7)))
     ]
+
 
 @pytest.mark.parametrize('group', testdata, ids=[repr(x) for x in testdata])
 def test_add_group(app, group):
